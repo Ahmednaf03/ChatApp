@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "docker start 439 && nodemon src/index.ts",
     "build": "tsc -b && nodemon src/index.ts"
   },
   "keywords": [],
