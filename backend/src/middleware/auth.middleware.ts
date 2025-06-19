@@ -21,8 +21,8 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
     if(!user){
         return res.status(404).json({ message: "User not found" });
     }
-// @ts-expect-error
-    req.user = user;
+// 
+    req.user = user as any;
     next();
     } catch (error) {
         console.log("Error in protectRoute middleware:", error);

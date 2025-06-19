@@ -106,7 +106,7 @@ export const updateProfile = async (req:Request, res:Response) => {
 export const checkAuth = (req: Request, res: Response) => {
 try {
     log("User from request:", req.cookies.jwt);
-    //@ts-expect-error
+
     res.status(200).json(req.user);
 } catch (error) {
     console.log("Error in checkAuth controller:", error);
