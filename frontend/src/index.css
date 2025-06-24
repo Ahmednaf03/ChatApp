@@ -1,12 +1,2 @@
 @import "tailwindcss";
-@layer base {
-  @import "daisyui/base";
-}
-
-@layer components {
-  @import "daisyui/components";
-}
-
-@layer utilities {
-  @import "daisyui/utilities";
-}
+@plugin "daisyui";
