@@ -8,6 +8,12 @@ interface AuthStore {
   isUpdatingProfile: boolean;
   isCheckingAuth: boolean;
   checkAuth: () => Promise<void>;
+  signup: (data:SignupData) => Promise<boolean>;
+}
+interface SignupData {
+  fullName: string;
+  email: string;
+  password: string;
 }
 export const useAuthStore = create<AuthStore>((set)=>({
     authUser: null,
@@ -27,5 +33,9 @@ export const useAuthStore = create<AuthStore>((set)=>({
         }finally{
             set({isCheckingAuth: false})
         }
+    },
+
+    signup: async (data:SignupData)=>{
+        return false
     }
 }))
