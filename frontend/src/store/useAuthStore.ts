@@ -1,20 +1,8 @@
 import {create } from 'zustand';
 import { axiosInstance } from '../lib/axios';
+import type { AuthStore } from '../types/types';
+import type { SignupData } from '../types/types';
 
-interface AuthStore {
-  authUser: null | object; // assuming authUser is an object
-  isSigningUp: boolean;
-  isLoggingIn: boolean;
-  isUpdatingProfile: boolean;
-  isCheckingAuth: boolean;
-  checkAuth: () => Promise<void>;
-  signup: (data:SignupData) => Promise<boolean>;
-}
-interface SignupData {
-  fullName: string;
-  email: string;
-  password: string;
-}
 export const useAuthStore = create<AuthStore>((set)=>({
     authUser: null,
     isSigningUp: false,
