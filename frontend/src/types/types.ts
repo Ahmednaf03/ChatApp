@@ -10,7 +10,10 @@ export interface AuthStore {
   isUpdatingProfile: boolean;
   isCheckingAuth: boolean;
   checkAuth: () => Promise<void>;
-  signup: (data:SignupData) => Promise<boolean>;
+  signup: (data:SignupData) => Promise<void>;
+  logout: () => Promise<void>;
+  login: (loginData:loginData) => Promise<void>;
+  
 }
 
 
@@ -18,4 +21,13 @@ export interface AuthStore {
   fullName: string;
   email: string;
   password: string;
+}
+
+export interface loginData {
+email: string;
+password: string;
+}
+
+export interface AxiosError extends Error {
+    response: any;
 }

@@ -1,7 +1,8 @@
 import {create } from 'zustand';
 import { axiosInstance } from '../lib/axios';
-import type { AuthStore } from '../types/types';
-import type { SignupData } from '../types/types';
+import type { AuthStore, AxiosError,SignupData,loginData } from '../types/types';
+import toast from 'react-hot-toast';
+
 
 export const useAuthStore = create<AuthStore>((set)=>({
     authUser: null,
@@ -9,6 +10,27 @@ export const useAuthStore = create<AuthStore>((set)=>({
     isLoggingIn: false,
     isUpdatingProfile: false,
     isCheckingAuth: true,
+     logout: async ()=>{
+        try {
+            await axiosInstance.post("/auth/logout");
+            set({authUser: null})
+            toast.success("Logged out successfully")
+        } catch (error:AxiosError | any) {
+            toast.error(error!.response.data?.message || "Failed to logout");
+        }
+    },
+    login : async (loginData:loginData)=>{
+        set({isLoggingIn: true})
+        try {
+            const res = await axiosInstance.post("/auth/login", loginData);
+            set({authUser: res.data})
+            toast.success("Logged in successfully")
+        } catch (error:AxiosError | any) {
+            toast.error(error.response?.data?.message || "Failed to login");
+        } finally{
+            set({isLoggingIn: false})
+        }
+    },
 
     checkAuth : async ()=>{
         try {
@@ -24,6 +46,18 @@ export const useAuthStore = create<AuthStore>((set)=>({
     },
 
     signup: async (data:SignupData)=>{
-        return false
-    }
+        set({isSigningUp: true})
+
+        try {
+          const res =await axiosInstance.post("/auth/signup", data);
+          set({authUser: res.data})
+            toast.success("Account created successfully");
+        } catch (error:AxiosError | any) {
+            toast.error(error!.response.data?.message || "Failed to create account");
+            
+        }
+       
+    },
+
+   
 }))

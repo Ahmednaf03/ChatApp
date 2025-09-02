@@ -25,6 +25,7 @@ const SignupPage = () => {
   const handleSubmit =(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     const isValid = validateForm()
+    if(isValid===true) { signup(formData)}
   }
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
